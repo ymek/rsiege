@@ -4,7 +4,6 @@ module RSiege
 
     def setup
       @player ||= Player.create(factor: 1, alpha: 100, x: 200, y: 200)
-      @square = fill_rect([10,10,100,100], Gosu::Color::WHITE)
     end
 
     def update
@@ -12,7 +11,7 @@ module RSiege
     end
 
     def draw
-      #fill(Gosu::Color::BLACK)
+      fill(Gosu::Color::BLACK)
       super
     end
   end
