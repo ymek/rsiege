@@ -1,6 +1,4 @@
 module RSiege
-  ##
-  # FIXME: Something is wonky with the animations
   class Player < Actor
     trait :velocity
     trait :animation, alpha: 100, delay: 200, size: [32, 48]
@@ -12,38 +10,44 @@ module RSiege
         holding_up: :move_up,
         holding_down: :move_down
       }
-      #@animation = self.animations[:default].first
+
+      @frame_name = :default
+      @last_x, @last_y = @x, @y
     end
 
     def update
-      @image = @animation.next if @animation.respond_to?(:next)
-      @animation = self.animations[:default].first unless moved?
+      if moved?
+        @image = self.animations[@frame_name].next
+      else
+        @image = self.animations[@frame_name].first
+      end
+
+      @last_x, @last_y = @x, @y
     end
 
     private
     def move_left
-      @animation = self.animations[:left] if self.animations[:left]
+      @frame_name = :left
       move(-1, 0)
     end
 
     def move_right
-      @animation = self.animations[:right] if self.animations[:right]
+      @frame_name = :right
       move(1, 0)
     end
 
     def move_up
-      @animation = self.animations[:up] if self.animations[:up]
+      @frame_name = :up
       move(0, -1)
     end
 
     def move_down
-      @animation = self.animations[:down] if self.animations[:down]
+      @frame_name = :down
       move(0, 1)
     end
 
-    def move(x, y)
-      self.x += x
-      self.y += y
+    def moved?
+      @last_x != @x || @last_y != @y
     end
   end
 end
