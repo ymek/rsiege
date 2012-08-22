@@ -7,7 +7,7 @@ module RSiege
         space: :exit,
       }
       switch_game_state(Menu)
-      transitional_game_state(Chingu::GameStates::FadeTo, speed: 5, debug: true)
+      transitional_game_state(Chingu::GameStates::FadeTo, speed: 15, debug: true)
     end
 
     def toggle_menu
